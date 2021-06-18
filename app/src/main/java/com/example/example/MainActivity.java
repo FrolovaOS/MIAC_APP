@@ -64,9 +64,6 @@ public class MainActivity extends AppCompatActivity {
         rest = retrofit.create(Rest.class);
     }
 
-    //Интересное решение, но можно и разделить так как усложняет читаемость, что думаешь?
-    //Почему так решила ??))
-
     public void enter(View view){
         String log = login.getText().toString();
         System.out.println("login = " + log);
@@ -76,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
         System.out.println(restF());
 
         //отправка на сервер и проверка -> вход в личный каб
-        //Intent intent = new Intent(MainActivity.this, Account.class);
-        //startActivity(intent);
+        Intent intent = new Intent(MainActivity.this, Account.class);
+        startActivity(intent);
     }
 
 

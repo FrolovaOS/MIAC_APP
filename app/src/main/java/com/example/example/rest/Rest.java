@@ -5,7 +5,7 @@ import retrofit2.http.GET;
 
 public interface Rest {
 
-    @GET("")
+    @GET("https://localhost/swagger/")
     Single<String> getHello();
 
 
