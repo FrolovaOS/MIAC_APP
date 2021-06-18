@@ -24,9 +24,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import com.example.example.model.User;
 import com.example.example.model.UserLogIn;
+import com.example.example.model.UserRegistration;
 import com.example.example.service.UserApiServer;
-
-import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -44,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     //pleas work
 
     UserApiServer userApiServer;
+
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void registration(View view){
+    public void registration(View view) {
         Intent intent = new Intent(MainActivity.this, Registration.class);
         startActivity(intent);
     }

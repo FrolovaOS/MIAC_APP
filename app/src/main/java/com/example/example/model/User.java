@@ -1,9 +1,17 @@
 package com.example.example.model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+
+import com.google.gson.annotations.SerializedName;
+
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
 public class User {
+
 
     private String access_token;
     private String refresh_token;
@@ -12,6 +20,9 @@ public class User {
 
     @Data
     class UserData{
+
+        @SerializedName("pk")
+        private Integer id;
 
         private String username;
 
