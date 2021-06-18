@@ -1,5 +1,7 @@
 package com.example.example;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +22,16 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
+import com.example.example.model.User;
+import com.example.example.model.UserLogIn;
+import com.example.example.service.UserApiServer;
+
+import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.BiConsumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     private CompositeDisposable compositeDisposable;
 
     //pleas work
+
+    UserApiServer userApiServer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
 
         configureRetrofit();
+        userApiServer = new UserApiServer();
         compositeDisposable = new CompositeDisposable();
 
     }
@@ -85,6 +100,40 @@ public class MainActivity extends AppCompatActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> {},throwable -> {}));
         return "eee";
+//        String log = login.getText().toString();
+//        String pass = password.getText().toString();
+        UserLogIn userLogIn = new UserLogIn("9960651412", "14122000");
+        User root;
+        try {
+            compositeDisposable.add(userApiServer.getRestApi().authorization(userLogIn)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new BiConsumer<User, Throwable>() {
+                        @Override
+                        public void accept(User user, Throwable throwable) throws Exception {
+                            if (throwable != null) {
+                                System.out.println("error");
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                builder.setTitle("Ошибка!")
+                                        .setMessage("Неверный пароль!")
+                                        .setCancelable(false)
+                                        .setNegativeButton("ОК",
+                                                new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int id) {
+                                                        dialog.cancel();
+                                                    }
+                                                });
+                                AlertDialog alert = builder.create();
+                                alert.show();
+                            } else {
+                                System.out.println("заебись");
+                            }
+                        }
+                    }));
+        }catch (Exception exception){
+            exception.printStackTrace();
+        }
+
     }
 
     public void registration(View view){
