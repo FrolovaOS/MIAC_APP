@@ -13,8 +13,6 @@ import com.example.example.model.User;
 import com.example.example.model.UserLogIn;
 import com.example.example.service.UserApiServer;
 
-import java.util.List;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.BiConsumer;
@@ -27,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
     UserApiServer userApiServer;
     private CompositeDisposable compositeDisposable;
+
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,36 +44,31 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //Интересное решение, но можно и разделить, усложняет читаемость, что думаешь?
-    //Почему так решила ??))
-
-    public void enter(View view){
-//        String log = login.getText().toString();
-//        String pass = password.getText().toString();
-        UserLogIn userLogIn = new UserLogIn("9960651412", "14122000");
-        User root;
-        try {
-            compositeDisposable.add(userApiServer.getRestApi().authorization(userLogIn)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new BiConsumer<User, Throwable>() {
-                        @Override
-                        public void accept(User user, Throwable throwable) throws Exception {
-                            if (throwable != null) {
-                                System.out.println("erro");
-                            } else {
-                                System.out.println("заебись");
-                            }
-                        }
-                    }));
-        }catch (Exception exception){
-            exception.printStackTrace();
-        }
-
-
+    public void setUser(User u) {
+        user = u;
     }
 
-    public void registration(View view){
+    public void enter(View view) {
+        String log = login.getText().toString();
+        String pass = password.getText().toString();
+        UserLogIn userLogIn = new UserLogIn(log, pass);
+        compositeDisposable.add(userApiServer.getRestApi().authorization(userLogIn)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BiConsumer<User, Throwable>() {
+                    @Override
+                    public void accept(User user, Throwable throwable) throws Exception {
+                        if (throwable != null) {
+                            System.out.println("erro");
+                            //TODO ошибка должна выдаваться пользователю
+                        } else {
+                            setUser(user);
+                        }
+                    }
+                }));
+    }
+
+    public void registration(View view) {
         Intent intent = new Intent(MainActivity.this, Registration.class);
         startActivity(intent);
     }
