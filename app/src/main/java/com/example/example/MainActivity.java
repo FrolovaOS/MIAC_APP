@@ -87,53 +87,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }));
     }
-
     public void registration(View view) {
         Intent intent = new Intent(MainActivity.this, Registration.class);
         startActivity(intent);
-
-        String username;
-        String email;
-        String password1;
-        String password2;
-        String first_name;
-        String last_name;
-
-        UserRegistration userRegistration = new UserRegistration(username,
-                email,
-                password1,
-                password2,
-                first_name,
-                last_name);
-
-        compositeDisposable.add(userApiServer.getRestApi().registration(userRegistration)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BiConsumer<User, Throwable>() {
-                    @Override
-                    public void accept(User user, Throwable throwable) throws Exception {
-                        if (throwable != null) {
-                            System.out.println("erro"); 
-                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                                builder.setTitle("Ошибка!")
-                                        .setMessage("Неверный пароль!")
-                                        .setCancelable(false)
-                                        .setNegativeButton("ОК",
-                                                new DialogInterface.OnClickListener() {
-                                                    public void onClick(DialogInterface dialog, int id) {
-                                                        dialog.cancel();
-                                                    }
-                                                });
-                                AlertDialog alert = builder.create();
-                                alert.show();
-                        } else {
-                            setUser(user);
-                        }
-                    }
-                }));
-
-
-
     }
 
 }
