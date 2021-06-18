@@ -63,80 +63,30 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void configureRetrofit(){
-        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-        httpLoggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
 
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(httpLoggingInterceptor)
-                .build();
-        retrofit = new Retrofit.Builder()
-                .baseUrl("https://localhost/swagger/")
-                .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-
-        rest = retrofit.create(Rest.class);
+    public void setUser(User u) {
+        user = u;
     }
 
-    public void enter(View view){
+    public void enter(View view) {
         String log = login.getText().toString();
-        System.out.println("login = " + log);
         String pass = password.getText().toString();
-        System.out.println("password = " + pass);
-        //TODO
-        System.out.println(restF());
-
-        //отправка на сервер и проверка -> вход в личный каб
-        Intent intent = new Intent(MainActivity.this, Account.class);
-        startActivity(intent);
-    }
-
-
-
-    public String restF(){
-        compositeDisposable.add(rest.getHello()
+        UserLogIn userLogIn = new UserLogIn(log, pass);
+        compositeDisposable.add(userApiServer.getRestApi().authorization(userLogIn)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(s -> {},throwable -> {}));
-        return "eee";
-//        String log = login.getText().toString();
-//        String pass = password.getText().toString();
-        UserLogIn userLogIn = new UserLogIn("9960651412", "14122000");
-        User root;
-        try {
-            compositeDisposable.add(userApiServer.getRestApi().authorization(userLogIn)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new BiConsumer<User, Throwable>() {
-                        @Override
-                        public void accept(User user, Throwable throwable) throws Exception {
-                            if (throwable != null) {
-                                System.out.println("error");
-                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                                builder.setTitle("Ошибка!")
-                                        .setMessage("Неверный пароль!")
-                                        .setCancelable(false)
-                                        .setNegativeButton("ОК",
-                                                new DialogInterface.OnClickListener() {
-                                                    public void onClick(DialogInterface dialog, int id) {
-                                                        dialog.cancel();
-                                                    }
-                                                });
-                                AlertDialog alert = builder.create();
-                                alert.show();
-                            } else {
-                                System.out.println("заебись");
-                            }
+                .subscribe(new BiConsumer<User, Throwable>() {
+                    @Override
+                    public void accept(User user, Throwable throwable) throws Exception {
+                        if (throwable != null) {
+                            System.out.println("erro");
+                            //TODO ошибка должна выдаваться пользователю
+                        } else {
+                            setUser(user);
                         }
-                    }));
-        }catch (Exception exception){
-            exception.printStackTrace();
-        }
-
+                    }
+                }));
     }
-
     public void registration(View view) {
         Intent intent = new Intent(MainActivity.this, Registration.class);
         startActivity(intent);
