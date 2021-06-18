@@ -3,9 +3,7 @@
     package="com.example.example">
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
-
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,8 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Registration">
-        </activity>
+        <activity android:name=".Registration" />
+        <activity android:name=".Account" />
+
+        <activity android:name=".addNotes" />
+
+
     </application>
 
 </manifest>
