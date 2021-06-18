@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.example.model.User;
 import com.example.example.model.UserLogIn;
+import com.example.example.model.UserRegistration;
 import com.example.example.service.UserApiServer;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -71,6 +72,38 @@ public class MainActivity extends AppCompatActivity {
     public void registration(View view) {
         Intent intent = new Intent(MainActivity.this, Registration.class);
         startActivity(intent);
+
+        String username;
+        String email;
+        String password1;
+        String password2;
+        String first_name;
+        String last_name;
+
+        UserRegistration userRegistration = new UserRegistration(username,
+                email,
+                password1,
+                password2,
+                first_name,
+                last_name);
+
+        compositeDisposable.add(userApiServer.getRestApi().registration(userRegistration)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BiConsumer<User, Throwable>() {
+                    @Override
+                    public void accept(User user, Throwable throwable) throws Exception {
+                        if (throwable != null) {
+                            System.out.println("erro");
+                            //TODO ошибка должна выдаваться пользователю
+                        } else {
+                            setUser(user);
+                        }
+                    }
+                }));
+
+
+
     }
 
 }

@@ -1,5 +1,7 @@
 package com.example.example.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import lombok.Data;
 
 @Data
@@ -12,6 +14,9 @@ public class User {
 
     @Data
     class UserData{
+
+        @SerializedName("pk")
+        private Integer id;
 
         private String username;
 
