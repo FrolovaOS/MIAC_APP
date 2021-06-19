@@ -1,5 +1,6 @@
 package com.example.example.rubish;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,10 +12,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.example.MainActivity;
 import com.example.example.R;
 import com.example.example.USER.UserLocal;
+import com.example.example.model.Measurement;
 import com.example.example.model.MeasurementAdd;
 import com.example.example.service.MeasurementServer;
+import com.google.gson.internal.bind.util.ISO8601Utils;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -40,27 +44,6 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
         measurements = _notes;
         compositeDisposable = new CompositeDisposable();
     }
-
-
-//    public void getList() {
-//        compositeDisposable.add(server.getRestApi().getAllNote(UserLocal.getKey(), UserLocal.getId())
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new BiConsumer<TupayaHuyna, Throwable>() {
-//                    @Override
-//                    public void accept(TupayaHuyna u, Throwable throwable) throws Exception {
-//                        if (throwable != null) {
-//                            System.out.println("ERROR");
-//                            throwable.printStackTrace();
-//                        } else {
-//                            measurements = new ArrayList<>(u.getMeasurements());
-//                            this.notifyDataSetChanged();
-//                        }
-//                    }
-//                }));
-//    }
-    //Это всё для получения листа, куда его деть обсудим вместе
-
 
     @Override
     public RecipesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -103,28 +86,34 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            if (measurements.size() !=0 ) {
-                                int position = getAdapterPosition();
-                                server.getRestApi().deleteNode(UserLocal.getLocalUser().getAccess_token(), position)
-                                        .subscribeOn(Schedulers.io())
-                                        .observeOn(AndroidSchedulers.mainThread())
-                                        .subscribe(new CallbackCompletableObserver(
-                                                throwable -> {
-//                            TODO вывести сообщение об ошибке
-                                                },
-                                                () -> {
-                                                    measurements.remove(position);
-                                                }
-                                        ));
+                            int position = getAdapterPosition();
+                            server.getRestApi().deleteNode(UserLocal.getKey(), measurements.get(position).getId())
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(new CallbackCompletableObserver(
+                                            throwable -> {
+                                                System.out.println("error");
+                                                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                                                builder.setTitle("Ошибка!")
+                                                        .setMessage("Записи кончились!")
+                                                        .setCancelable(false)
+                                                        .setNegativeButton("ОК",
+                                                                (dialog, id) -> dialog.cancel());
+                                                AlertDialog alert = builder.create();
+                                                alert.show();
+                                            },
+                                            () -> {
+                                                System.out.println("DeleteSucsess");
+                                                measurements.remove(position);
+                                            }
+                                    ));
 
                             notifyItemRemoved(getAdapterPosition());
                         }
-                        }
                     });
-
         }
 
-        //WTF??? TODO
+
         public void bind(Measurement rec) {
             this.note2 = rec;
             saturation.setText(new String("Saturation = " + rec.getSaturation() + "%"));

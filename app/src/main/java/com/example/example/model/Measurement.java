@@ -1,4 +1,4 @@
-package com.example.example.rubish;
+package com.example.example.model;
 
 import com.example.example.model.MeasurementAdd;
 import com.google.gson.annotations.SerializedName;

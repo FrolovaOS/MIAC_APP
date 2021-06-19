@@ -16,7 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.example.rubish.Measurement;
+import com.example.example.model.Measurement;
 
 import java.io.InputStream;
 import java.util.ArrayList;

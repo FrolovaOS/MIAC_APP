@@ -7,10 +7,9 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class UserMeasurement extends UserAbstract {
+public class Recomendations extends UserAbstract{
 
-
-    @SerializedName("measurement")
-    private List<Measurement> measurements;
+    @SerializedName("recomendation")
+    private List<Recomend> recomendations;
 
 }

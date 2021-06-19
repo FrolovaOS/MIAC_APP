@@ -94,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
                             AlertDialog alert = builder.create();
                             alert.show();
                         } else {
-                            System.out.println("заебись");
                             UserLocal.setLocalUser(u);
                             Intent intent = new Intent(MainActivity.this, Account.class);
                             startActivity(intent);

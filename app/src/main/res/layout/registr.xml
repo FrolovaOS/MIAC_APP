@@ -68,6 +68,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:hint="Enter password"
+        android:password="true"
         android:textColorHint="#83070000"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,6 +83,7 @@
         android:layout_marginTop="10dp"
         android:hint="Confirm password"
         android:textColorHint="#83070000"
+        android:password="true"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordR1" />
