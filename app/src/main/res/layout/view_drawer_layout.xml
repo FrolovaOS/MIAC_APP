@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    android:background="#ADE9F1"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:text="lastName"
+        android:textSize="20sp"
+        android:translationX="50dp"
+        android:translationY="70dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:text="name"
+        android:textSize="20sp"
+        android:translationX="50dp"
+        android:translationY="20dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:text="snills"
+        android:textSize="20sp"
+        android:translationX="50dp"
+        android:translationY="120dp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:text="email"
+        android:textSize="20sp"
+        android:translationX="50dp"
+        android:translationY="170dp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:text="recomendation"
+        android:textSize="20sp"
+        android:translationX="10dp"
+        android:translationY="240dp" />
+</RelativeLayout>

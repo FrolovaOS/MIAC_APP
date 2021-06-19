@@ -1,5 +1,6 @@
 package com.example.example;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
@@ -47,7 +48,7 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
     }
 
     public class RecipesViewHolder extends RecyclerView.ViewHolder {
-        TextView note_text;
+        TextView data,saturation, lowPress, highPress, pulse;
         ImageView delete;
         Note note;
         ArrayList<String> notes1;
@@ -57,7 +58,11 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
         public RecipesViewHolder(View view) {
 
             super(view);
-            note_text = itemView.findViewById(R.id.note_text);
+            saturation = itemView.findViewById(R.id.saturation);
+            data = itemView.findViewById(R.id.data);
+            lowPress = itemView.findViewById(R.id.lowPressure1);
+            highPress = itemView.findViewById(R.id.highPressure1);
+            pulse = itemView.findViewById(R.id.pulse10);
             delete = itemView.findViewById(R.id.delete);
 
             delete.setOnClickListener(
@@ -73,9 +78,13 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
         }
 
         public void bind(Note rec) {
-            String text;
             this.note2 = rec;
-            note_text.setText(rec.toString());
+            if (rec.getSaturation() != null)
+                saturation.setText(new String("Saturation = "+rec.getSaturation() + "%"));
+            lowPress.setText(new String("Low pressure = "+rec.getLowPressure()));
+            highPress.setText(new String("High pressure = "+rec.getHighPressure()));
+            pulse.setText(new String("Pulse = "+rec.getPulse()));
+            data.setText(rec.getTimestamp());
 
             InputStream inputStream = null;
         }

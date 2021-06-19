@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         compositeDisposable.add(userApiServer.getRestApi().authorization(userLogIn)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+
                 .subscribe(new BiConsumer<User, Throwable>() {
                     @Override
                     public void accept(User user, Throwable throwable) throws Exception {

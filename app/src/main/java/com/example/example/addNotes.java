@@ -1,5 +1,6 @@
 package com.example.example;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,6 +13,9 @@ import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class addNotes extends AppCompatActivity {
 
@@ -55,12 +59,14 @@ public class addNotes extends AppCompatActivity {
     }
 
 
+    @SuppressLint("SimpleDateFormat")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save: {
 
-                timestamp = String.valueOf(new java.sql.Timestamp(System.currentTimeMillis()).getTime());
+
+                timestamp = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm").format(new Date());
                 lowPressure = lowPres.getText().toString();
                 highPressure = highPres.getText().toString();
                 pulse = pulse1.getText().toString();
