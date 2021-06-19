@@ -1,4 +1,4 @@
-package com.example.example;
+package com.example.example.rubish;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,10 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.example.AddMeasurement;
+import com.example.example.NavigationLayout;
+import com.example.example.R;
+import com.example.example.model.Measurement;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
@@ -22,7 +26,7 @@ public class Account extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private FloatingActionButton fab;
-    private ArrayList<Note> notes ;
+    private ArrayList<Measurement> notes ;
     private String request;
     private String timestamp;
     NavigationLayout navigationLayout;
@@ -48,7 +52,7 @@ public class Account extends AppCompatActivity {
 
         //потом удалить
         notes = new ArrayList<>();
-        Note n = new Note();
+        Measurement n = new Measurement();
         n.setHighPressure("125");
         n.setLowPressure("60");
         n.setPulse("145");
@@ -98,7 +102,7 @@ public class Account extends AppCompatActivity {
 
 
     public void addNote(View view) {
-        Intent intent = new Intent(Account.this, addNotes.class);
+        Intent intent = new Intent(Account.this, AddMeasurement.class);
         startActivity(intent);
     }
 }

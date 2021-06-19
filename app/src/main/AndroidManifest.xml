@@ -19,9 +19,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Registration" />
-        <activity android:name=".Account" />
+        <activity android:name=".rubish.Account" />
 
-        <activity android:name=".addNotes" />
+        <activity android:name=".AddMeasurement" />
 
 
     </application>

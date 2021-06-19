@@ -1,7 +1,6 @@
 package com.example.example.service;
 
-import com.example.example.R;
-import com.example.example.retrofit.UserApi;
+import com.example.example.retrofit.MeasurementApi;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -9,13 +8,13 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class UserApiServer {
+public class MeasurementServer {
 
-    UserApi userApi;
+    MeasurementApi measurementApi;
 
-    public UserApiServer() {
+    public MeasurementServer() {
         Retrofit retrofit = createRetrofit();
-        this.userApi = retrofit.create(UserApi.class);
+        this.measurementApi = retrofit.create(MeasurementApi.class);
     }
 
     private Retrofit createRetrofit() {
@@ -36,8 +35,8 @@ public class UserApiServer {
                 .build();
     }
 
-    public UserApi getRestApi() {
-        return userApi;
+    public MeasurementApi getRestApi() {
+        return measurementApi;
     }
 
 }
