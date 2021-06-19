@@ -7,13 +7,13 @@
     android:background="@drawable/wp">
 
     <EditText
-        android:id="@+id/phone"
+        android:id="@+id/snills"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="80dp"
-        android:hint="Enter phone"
+        android:hint="Enter snills"
         android:textColorHint="#83070000"
         android:textSize="20sp"
         android:inputType="phone"
@@ -32,7 +32,33 @@
         android:inputType="textEmailAddress"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone" />
+        app:layout_constraintTop_toBottomOf="@+id/snills" />
+
+    <EditText
+        android:id="@+id/firstName123"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:hint="Enter first name"
+        android:textColorHint="#83070000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
+
+    <EditText
+        android:id="@+id/lastName123"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:hint="Enter last name"
+        android:textColorHint="#83070000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/firstName123" />
 
     <EditText
         android:id="@+id/passwordR1"
@@ -45,7 +71,7 @@
         android:textColorHint="#83070000"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/lastName123" />
 
     <EditText
         android:id="@+id/passwordR2"
@@ -59,32 +85,6 @@
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordR1" />
-
-    <EditText
-        android:id="@+id/firstName"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:hint="Confirm password"
-        android:textColorHint="#83070000"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordR2" />
-
-    <EditText
-        android:id="@+id/lastName"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:hint="Confirm password"
-        android:textColorHint="#83070000"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/firstName" />
 
 
 
@@ -100,7 +100,7 @@
         android:textColor="#EE050101"
         app:backgroundTint="#C1039BE5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lastName" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordR2" />
 
     <Button
         android:id="@+id/cancel"
@@ -114,7 +114,7 @@
         android:textColor="#EE050101"
         app:backgroundTint="#C1039BE5"
         app:layout_constraintStart_toEndOf="@+id/okey"
-        app:layout_constraintTop_toBottomOf="@+id/lastName" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordR2" />
 
     <TextView
         android:id="@+id/textView2"

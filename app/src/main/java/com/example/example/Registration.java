@@ -1,5 +1,7 @@
 package com.example.example;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +22,7 @@ import io.reactivex.schedulers.Schedulers;
 public class Registration extends AppCompatActivity implements View.OnClickListener {
 
     Button okey, cancel;
-    EditText phone, email, pass1, pass2, firstName, lastName;
+    EditText snills, email, pass1, pass2, firstName, lastName;
 
 
     private CompositeDisposable compositeDisposable;
@@ -38,12 +40,12 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         cancel.setOnClickListener(this);
 
 
-        phone = (EditText) findViewById(R.id.phone);
+        snills = (EditText) findViewById(R.id.snills);
         email = (EditText) findViewById(R.id.email);
         pass1 = (EditText) findViewById(R.id.passwordR1);
         pass2 = (EditText) findViewById(R.id.passwordR2);
-        firstName = (EditText) findViewById(R.id.firstName);
-        lastName = (EditText) findViewById(R.id.lastName);
+        firstName = (EditText) findViewById(R.id.firstName123);
+        lastName = (EditText) findViewById(R.id.lastName123);
 
         userApiServer = new UserApiServer();
         compositeDisposable = new CompositeDisposable();
@@ -53,11 +55,11 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.okey:
-                String phone1 = phone.getText().toString();
+                String phone1 = snills.getText().toString();
                 System.out.println("name = " + phone1);
                 String e = email.getText().toString();
                 System.out.println("lastName = " + e);
-                String username = phone.getText().toString();
+                String username = snills.getText().toString();
                 String email1 = email.getText().toString();
                 String password1 = pass1.getText().toString();
                 String password2 = pass2.getText().toString();
@@ -78,12 +80,27 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                             @Override
                             public void accept(User user, Throwable throwable) throws Exception {
                                 if (throwable != null) {
-                                    System.out.println("erro");
-                                    //TODO ошибка должна выдаваться пользователю
+                                    System.out.println("error");
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(Registration.this);
+                                    builder.setTitle("Ошибка!")
+                                            .setMessage("Неверные данные!")
+                                            .setCancelable(false)
+                                            .setNegativeButton("ОК",
+                                                    new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int id) {
+                                                            dialog.cancel();
+                                                        }
+                                                    });
+                                    AlertDialog alert = builder.create();
+                                    alert.show();
                                 } else {
-                                    setUser(user);
+                                    System.out.println("заебись");
+                                   // setUser();
+                                    Intent intent = new Intent(Registration.this, Account.class);
+                                    startActivity(intent);
                                 }
                             }
+
                         }));
 
                 //отправка на сервер и проверка, запись в бд -> вход в личный каб

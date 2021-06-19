@@ -100,40 +100,16 @@ public class MainActivity extends AppCompatActivity {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> {},throwable -> {}));
-        return "eee";
 //        String log = login.getText().toString();
 //        String pass = password.getText().toString();
-        UserLogIn userLogIn = new UserLogIn("9960651412", "14122000");
-        User root;
-        try {
-            compositeDisposable.add(userApiServer.getRestApi().authorization(userLogIn)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new BiConsumer<User, Throwable>() {
-                        @Override
-                        public void accept(User user, Throwable throwable) throws Exception {
-                            if (throwable != null) {
-                                System.out.println("error");
-                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                                builder.setTitle("Ошибка!")
-                                        .setMessage("Неверный пароль!")
-                                        .setCancelable(false)
-                                        .setNegativeButton("ОК",
-                                                new DialogInterface.OnClickListener() {
-                                                    public void onClick(DialogInterface dialog, int id) {
-                                                        dialog.cancel();
-                                                    }
-                                                });
-                                AlertDialog alert = builder.create();
-                                alert.show();
-                            } else {
+        //UserLogIn userLogIn = new UserLogIn("9960651412", "14122000");
+       // User root;
+
                                 System.out.println("заебись");
-                            }
-                        }
-                    }));
-        }catch (Exception exception){
-            exception.printStackTrace();
-        }
+                                Intent intent = new Intent(MainActivity.this, Account.class);
+                                startActivity(intent);
+
+        return "eee";
 
     }
 

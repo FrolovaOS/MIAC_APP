@@ -1,17 +1,7 @@
 package com.example.example;
 
 public class Note {
-    private String timestamp, lowPressure, highPressure, pulse;
-
-    @Override
-    public String toString() {
-        return
-                "Timestamp='" + timestamp + '\'' +
-                ", lowPressure='" + lowPressure + '\'' +
-                ", highPressure='" + highPressure + '\'' +
-                ", pulse='" + pulse + '\'' +
-                '}';
-    }
+    private String timestamp, lowPressure, highPressure, pulse, saturation;
 
     public String getTimestamp() {
         return timestamp;
@@ -43,5 +33,13 @@ public class Note {
 
     public void setPulse(String pulse) {
         this.pulse = pulse;
+    }
+
+    public String getSaturation() {
+        return saturation;
+    }
+
+    public void setSaturation(String saturation) {
+        this.saturation = saturation;
     }
 }
