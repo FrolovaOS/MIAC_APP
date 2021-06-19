@@ -1,6 +1,5 @@
 package com.example.example;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,16 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.example.USER.UserLocal;
-import com.example.example.model.Measurement;
-import com.example.example.model.User;
+import com.example.example.model.MeasurementAdd;
 import com.example.example.rubish.Account;
 import com.example.example.service.MeasurementServer;
 
-import java.util.AbstractSequentialList;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.BiConsumer;
 import io.reactivex.internal.observers.CallbackCompletableObserver;
 import io.reactivex.schedulers.Schedulers;
 
@@ -32,10 +27,8 @@ public class AddMeasurement extends AppCompatActivity {
 
     private CompositeDisposable compositeDisposable;
 
-    private String timestamp,
-            lowPressure,
-            highPressure,
-            pulse;
+    private String timestamp;
+
 
     private Spinner spinner;
 
@@ -43,7 +36,7 @@ public class AddMeasurement extends AppCompatActivity {
     private String item;
     private String[] countries = {"Подъем на этаж", "Бег", "Прогулка", "Волнение"};
 
-    MeasurementServer server;
+    MeasurementServer server = new MeasurementServer();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -91,14 +84,14 @@ public class AddMeasurement extends AppCompatActivity {
     }
 
     private void addMeasure() {
-        timestamp = String.valueOf(new java.sql.Timestamp(System.currentTimeMillis()).getTime());
-        lowPressure = lowPres.getText().toString();
-        highPressure = highPres.getText().toString();
-        pulse = pulse1.getText().toString();
-        Measurement measurement = new Measurement(timestamp, lowPressure, highPressure, pulse);
+        int lowPressure = Integer.parseInt(lowPres.getText().toString());
+        int highPressure = Integer.parseInt(highPres.getText().toString());
+        int pulse = Integer.parseInt(pulse1.getText().toString());
+        int seturation = 0;//TODO
 
+        MeasurementAdd measurementAdd = new MeasurementAdd(lowPressure, highPressure, pulse, seturation, UserLocal.getId(), "gasdf");
 
-        server.getRestApi().addNewNode(UserLocal.getLocalUser().getAccess_token(), measurement)
+        server.getRestApi().addNewNode(UserLocal.getKey(), measurementAdd)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new CallbackCompletableObserver(
@@ -110,7 +103,6 @@ public class AddMeasurement extends AppCompatActivity {
                         }
                 ));
 
-        System.out.println("timestamp = " + timestamp + ", lowsPress = " + lowPressure + ", highPress = " + highPressure + ", pulse = " + pulse);
         Intent intent = new Intent(AddMeasurement.this, Account.class);
         startActivity(intent);
         finish();

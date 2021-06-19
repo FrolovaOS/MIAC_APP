@@ -1,9 +1,7 @@
 package com.example.example.rubish;
 
-import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.example.MainActivity;
-import com.example.example.Note;
 import com.example.example.R;
 import com.example.example.USER.UserLocal;
-import com.example.example.model.Measurement;
-import com.example.example.model.User;
+import com.example.example.model.MeasurementAdd;
 import com.example.example.service.MeasurementServer;
 
 import java.io.InputStream;
@@ -35,7 +30,7 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
 
     private MeasurementServer server;
     protected final Context mContext;
-    private ArrayList<Measurement> notes;
+    private ArrayList<Measurement> notes = new ArrayList<>();
     CompositeDisposable compositeDisposable;
 
     protected AdapterNotesDB(Context context, ArrayList<Measurement> _notes) {
@@ -60,14 +55,14 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
 
     @Override
     public int getItemCount() {
-        return notes.size();
+        return notes == null ? 0 : notes.size();
     }
 
     public class RecipesViewHolder extends RecyclerView.ViewHolder {
         TextView data, saturation, lowPress, highPress, pulse;
         ;
         ImageView delete;
-        Measurement note;
+        MeasurementAdd note;
         ArrayList<String> notes1;
         ContentValues cv = new ContentValues();
         private Measurement note2;
@@ -110,19 +105,18 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
         //WTF??? TODO
         public void bind(Measurement rec) {
             this.note2 = rec;
-            if (rec.getSaturation() != null)
-                saturation.setText(new String("Saturation = " + rec.getSaturation() + "%"));
-            lowPress.setText(new String("Low pressure = " + rec.getLowPressure()));
-            highPress.setText(new String("High pressure = " + rec.getHighPressure()));
+            saturation.setText(new String("Saturation = " + rec.getSaturation() + "%"));
+            lowPress.setText(new String("Low pressure = " + rec.getPressure_low()));
+            highPress.setText(new String("High pressure = " + rec.getPressure_high()));
             pulse.setText(new String("Pulse = " + rec.getPulse()));
-            data.setText(rec.getTimestamp());
+            data.setText(rec.getDataCreate());
 
             InputStream inputStream = null;
         }
 
         //Это всё для получения листа, куда его деть обсудим вместе
         public void getList() {
-            compositeDisposable.add(server.getRestApi().getAllNote(UserLocal.getLocalUser().getAccess_token())
+            compositeDisposable.add(server.getRestApi().getAllNote(UserLocal.getKey())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new BiConsumer<List<Measurement>, Throwable>() {

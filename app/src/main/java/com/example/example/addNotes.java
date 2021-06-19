@@ -15,12 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.example.USER.UserLocal;
-import com.example.example.model.Measurement;
+import com.example.example.model.MeasurementAdd;
 import com.example.example.rubish.Account;
 import com.example.example.service.MeasurementServer;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.internal.observers.CallbackCompletableObserver;
@@ -28,7 +25,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class addNotes extends AppCompatActivity {
 
-    private String timestamp,lowPressure, highPressure, pulse;
+
     private Spinner spinner;
 
     EditText lowPres, highPres, pulse1;
@@ -77,15 +74,17 @@ public class addNotes extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_save: {
 
+                int lowPressure, highPressure, pulse, seturation;
 
-                timestamp = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm").format(new Date());
-                lowPressure = lowPres.getText().toString();
-                highPressure = highPres.getText().toString();
-                pulse = pulse1.getText().toString();
-                Measurement measurement = new Measurement(timestamp, lowPressure, highPressure, pulse);
+                lowPressure = Integer.parseInt(lowPres.getText().toString());
+                highPressure = Integer.parseInt(highPres.getText().toString());
+                pulse = Integer.parseInt(pulse1.getText().toString());
+                seturation = 0;
+                MeasurementAdd measurementAdd = new MeasurementAdd(lowPressure, highPressure, pulse, seturation, UserLocal.getId(), "gasdf");
+
                 //отправить данные в бд ( не забыть item)
 
-                server.getRestApi().addNewNode(UserLocal.getLocalUser().getAccess_token(), measurement)
+                server.getRestApi().addNewNode(UserLocal.getKey(), measurementAdd)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new CallbackCompletableObserver(
@@ -100,7 +99,7 @@ public class addNotes extends AppCompatActivity {
                         ));
 
 
-                System.out.println("timestamp = " + timestamp + ", lowsPress = " + lowPressure + ", highPress = " + highPressure + ", pulse = "+pulse);
+                System.out.println("timestamp = " + ", lowsPress = " + lowPressure + ", highPress = " + highPressure + ", pulse = "+pulse);
                 Intent intent = new Intent(addNotes.this, Account.class);
                 startActivity(intent);
                 finish();

@@ -16,11 +16,15 @@ public class User {
 
     private UserData user;
 
+    public int getId() {
+        return user.getId();
+    }
+
     @Data
     class UserData{
 
         @SerializedName("pk")
-        private Integer id;
+        private int id;
 
         private String username;
 

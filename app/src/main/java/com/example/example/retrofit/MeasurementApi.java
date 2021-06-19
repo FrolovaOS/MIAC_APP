@@ -1,6 +1,7 @@
 package com.example.example.retrofit;
 
-import com.example.example.model.Measurement;
+import com.example.example.model.MeasurementAdd;
+import com.example.example.rubish.Measurement;
 
 import java.util.List;
 
@@ -15,13 +16,13 @@ import retrofit2.http.Path;
 
 public interface MeasurementApi {
 
-    @GET("/measurement/")
+    @GET("api/measurement/")
     Single<List<Measurement>> getAllNote(@Header("authorization") String auth);
 
-    @POST("/measurement/")
-    Completable addNewNode(@Header("authorization") String auth, @Body Measurement note);
+    @POST("api/measurement/")
+    Completable addNewNode(@Header("authorization") String auth, @Body MeasurementAdd note);
 
-    @DELETE("/measurement/{id}/")
+    @DELETE("api/measurement/{id}/")
     Completable deleteNode(@Header("authorization") String auth, @Path("id") int id);
 
 }

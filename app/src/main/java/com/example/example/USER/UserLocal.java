@@ -9,8 +9,12 @@ public class UserLocal {
 
     private static User localUser;
 
-    public String getKey(){
-        return localUser.getAccess_token();
+    public static int getId(){
+        return localUser.getId();
+    }
+
+    public static String getKey(){
+        return "Bearer " + localUser.getAccess_token();
     }
 
     public static User getLocalUser() {
