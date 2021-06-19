@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.example.R;
 import com.example.example.USER.UserLocal;
+import com.example.example.model.Measurement;
 import com.example.example.model.MeasurementAdd;
 import com.example.example.service.MeasurementServer;
+import com.google.gson.internal.bind.util.ISO8601Utils;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -40,27 +42,6 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
         measurements = _notes;
         compositeDisposable = new CompositeDisposable();
     }
-
-
-//    public void getList() {
-//        compositeDisposable.add(server.getRestApi().getAllNote(UserLocal.getKey(), UserLocal.getId())
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new BiConsumer<TupayaHuyna, Throwable>() {
-//                    @Override
-//                    public void accept(TupayaHuyna u, Throwable throwable) throws Exception {
-//                        if (throwable != null) {
-//                            System.out.println("ERROR");
-//                            throwable.printStackTrace();
-//                        } else {
-//                            measurements = new ArrayList<>(u.getMeasurements());
-//                            this.notifyDataSetChanged();
-//                        }
-//                    }
-//                }));
-//    }
-    //Это всё для получения листа, куда его деть обсудим вместе
-
 
     @Override
     public RecipesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -104,7 +85,7 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
                         @Override
                         public void onClick(View view) {
                             int position = getAdapterPosition();
-                            server.getRestApi().deleteNode(UserLocal.getLocalUser().getAccess_token(), position)
+                            server.getRestApi().deleteNode(UserLocal.getKey(), measurements.get(position).getId())
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe(new CallbackCompletableObserver(
@@ -112,6 +93,7 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
 //                            TODO вывести сообщение об ошибке
                                             },
                                             () -> {
+                                                System.out.println("DeleteSucsess");
                                                 measurements.remove(position);
                                             }
                                     ));
@@ -122,7 +104,7 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
 
         }
 
-        //WTF??? TODO
+
         public void bind(Measurement rec) {
             this.note2 = rec;
             saturation.setText(new String("Saturation = " + rec.getSaturation() + "%"));

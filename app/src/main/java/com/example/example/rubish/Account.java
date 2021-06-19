@@ -15,8 +15,11 @@ import com.example.example.AddMeasurement;
 import com.example.example.NavigationLayout;
 import com.example.example.R;
 import com.example.example.USER.UserLocal;
+import com.example.example.model.Measurement;
+import com.example.example.model.Recomendations;
 import com.example.example.model.UserMeasurement;
 import com.example.example.service.MeasurementServer;
+import com.example.example.service.RecomendationsServer;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -33,9 +36,11 @@ public class Account extends AppCompatActivity {
     private ArrayList<Measurement> notes;
     private String request;
     private String timestamp;
+    private Recomendations recomendations;
     NavigationLayout navigationLayout;
     RelativeLayout left_drawer;
-    MeasurementServer server = new MeasurementServer();
+    MeasurementServer measurementServerrver = new MeasurementServer();
+    RecomendationsServer recomendationsServer = new RecomendationsServer();
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     AdapterNotesDB adapter;
@@ -66,19 +71,43 @@ public class Account extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         getList();
+        getRecomendations();
         adapter = new AdapterNotesDB(this, notes);
 
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 
+
+
     public void addNote(View view) {
         Intent intent = new Intent(Account.this, AddMeasurement.class);
         startActivity(intent);
     }
 
+    public void setRecomendations(Recomendations recomendations){
+        this.recomendations = recomendations;
+    }
+
+    private void getRecomendations() {
+        compositeDisposable.add(recomendationsServer.getRestApi().getRecomendations(UserLocal.getKey(), UserLocal.getId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BiConsumer<Recomendations, Throwable>() {
+                    @Override
+                    public void accept(Recomendations recomendations, Throwable throwable) throws Exception {
+                        if (throwable != null) {
+                            System.out.println("ERROR");
+                            throwable.printStackTrace();
+                        } else {
+                            setRecomendations(recomendations);
+                        }
+                    }
+                }));
+    }
+
     public void getList() {
-        compositeDisposable.add(server.getRestApi().getAllNote(UserLocal.getKey(), UserLocal.getId())
+        compositeDisposable.add(measurementServerrver.getRestApi().getAllNote(UserLocal.getKey(), UserLocal.getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BiConsumer<UserMeasurement, Throwable>() {

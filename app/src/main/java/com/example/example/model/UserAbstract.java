@@ -7,10 +7,11 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class UserMeasurement extends UserAbstract {
+public abstract class UserAbstract {
 
-
-    @SerializedName("measurement")
-    private List<Measurement> measurements;
+    private String username,
+            email,
+            first_name,
+            last_name;
 
 }
