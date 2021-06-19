@@ -80,10 +80,24 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void accept(User user, Throwable throwable) throws Exception {
                         if (throwable != null) {
-                            System.out.println("erro");
-                            //TODO ошибка должна выдаваться пользователю
+                            System.out.println("error");
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                            builder.setTitle("Ошибка!")
+                                    .setMessage("Неверные данные!")
+                                    .setCancelable(false)
+                                    .setNegativeButton("ОК",
+                                            new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int id) {
+                                                    dialog.cancel();
+                                                }
+                                            });
+                            AlertDialog alert = builder.create();
+                            alert.show();
                         } else {
-                            setUser(user);
+                            System.out.println("заебись");
+                            // setUser();
+                            Intent intent = new Intent(MainActivity.this, Account.class);
+                            startActivity(intent);
                         }
                     }
                 }));
