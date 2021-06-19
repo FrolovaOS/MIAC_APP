@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         user = u;
     }
 
+
     public void enter(View view) {
         String log = login.getText().toString();
         String pass = password.getText().toString();

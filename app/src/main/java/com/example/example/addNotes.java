@@ -14,10 +14,17 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.example.USER.UserLocal;
+import com.example.example.model.Measurement;
 import com.example.example.rubish.Account;
+import com.example.example.service.MeasurementServer;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.internal.observers.CallbackCompletableObserver;
+import io.reactivex.schedulers.Schedulers;
 
 public class addNotes extends AppCompatActivity {
 
@@ -27,6 +34,9 @@ public class addNotes extends AppCompatActivity {
     EditText lowPres, highPres, pulse1;
     private String item;
     String[] countries = { "Подъем на этаж", "Бег", "Прогулка", "Волнение"};
+    MeasurementServer server = new MeasurementServer();
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
@@ -72,7 +82,23 @@ public class addNotes extends AppCompatActivity {
                 lowPressure = lowPres.getText().toString();
                 highPressure = highPres.getText().toString();
                 pulse = pulse1.getText().toString();
+                Measurement measurement = new Measurement(timestamp, lowPressure, highPressure, pulse);
                 //отправить данные в бд ( не забыть item)
+
+                server.getRestApi().addNewNode(UserLocal.getLocalUser().getAccess_token(), measurement)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new CallbackCompletableObserver(
+                                throwable -> {
+                                    System.out.println("Err");
+//                            TODO вывести сообщение об ошибке
+                                },
+                                () -> {
+                                    System.out.println("Sucsses");
+//                          TODO всё получилось
+                                }
+                        ));
+
 
                 System.out.println("timestamp = " + timestamp + ", lowsPress = " + lowPressure + ", highPress = " + highPressure + ", pulse = "+pulse);
                 Intent intent = new Intent(addNotes.this, Account.class);

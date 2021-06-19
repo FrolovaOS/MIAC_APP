@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.example.USER.UserLocal;
 import com.example.example.model.User;
 import com.example.example.model.UserRegistration;
 import com.example.example.rubish.Account;
@@ -24,7 +25,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
     Button okey, cancel;
     EditText snills, email, pass1, pass2, firstName, lastName;
-
 
     private CompositeDisposable compositeDisposable;
 
@@ -96,7 +96,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                                     alert.show();
                                 } else {
                                     System.out.println("заебись");
-                                    // setUser();
+                                     UserLocal.setLocalUser(user);
                                     Intent intent = new Intent(Registration.this, Account.class);
                                     startActivity(intent);
                                 }
