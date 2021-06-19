@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.example.USER.UserLocal;
+
 public class NavigationLayout extends ConstraintLayout
 {
     TextView name,lastName, email, snills, recomendation;
@@ -21,7 +23,9 @@ public class NavigationLayout extends ConstraintLayout
     {
         // надуваем любой xml файл разметки
         name = (TextView) findViewById(R.id.textView3);
+        name.setText(new String(UserLocal.getLocalUser().getUserFirstName()));
         lastName = (TextView) findViewById(R.id.textView);
+        lastName.setText(UserLocal.getLocalUser().getUserLastName());
         email = (TextView) findViewById(R.id.textView5);
         snills = (TextView) findViewById(R.id.textView4);
         recomendation = (TextView) findViewById(R.id.textView6);

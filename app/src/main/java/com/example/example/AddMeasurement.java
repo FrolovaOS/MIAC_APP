@@ -32,7 +32,7 @@ public class AddMeasurement extends AppCompatActivity {
 
     private Spinner spinner;
 
-    public EditText lowPres, highPres, pulse1;
+    public EditText lowPres, highPres, pulse1, satur;
     private String item;
     private String[] countries = {"Подъем на этаж", "Бег", "Прогулка", "Волнение"};
 
@@ -53,6 +53,7 @@ public class AddMeasurement extends AppCompatActivity {
         lowPres = (EditText) findViewById(R.id.lowPressure);
         highPres = (EditText) findViewById(R.id.highPressure);
         pulse1 = (EditText) findViewById(R.id.pulse);
+        satur = (EditText) findViewById(R.id.saturation6);
 
         spinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, countries);
@@ -87,9 +88,9 @@ public class AddMeasurement extends AppCompatActivity {
         int lowPressure = Integer.parseInt(lowPres.getText().toString());
         int highPressure = Integer.parseInt(highPres.getText().toString());
         int pulse = Integer.parseInt(pulse1.getText().toString());
-        int seturation = 0;//TODO
+        int seturation = Integer.parseInt(satur.getText().toString());;//TODO
 
-        MeasurementAdd measurementAdd = new MeasurementAdd(lowPressure, highPressure, pulse, seturation, UserLocal.getId(), "gasdf");
+        MeasurementAdd measurementAdd = new MeasurementAdd(lowPressure, highPressure, pulse, seturation, UserLocal.getId(), item);
 
         server.getRestApi().addNewNode(UserLocal.getKey(), measurementAdd)
                 .subscribeOn(Schedulers.io())

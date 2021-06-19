@@ -16,21 +16,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.example.rubish.Measurement;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 
 public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesViewHolder> {
 
     protected final Context mContext;
-    private ArrayList<Note> notes;
+    private ArrayList<Measurement> notes;
 
-    protected AdapterNotesDB(Context context, ArrayList<Note> _notes) {
+    protected AdapterNotesDB(Context context, ArrayList<Measurement> _notes) {
         this.mContext = context;
         notes = _notes;
     }
 
     @Override
     public RecipesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         View view =
                 LayoutInflater.from(parent.getContext()).inflate(R.layout.measurement_vie, parent, false);
         return new RecipesViewHolder(view);
@@ -38,7 +41,7 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
 
     @Override
     public void onBindViewHolder(@NonNull RecipesViewHolder holder, int position) {
-        final Note note = notes.get(position);
+        final Measurement note = notes.get(position);
         holder.bind(note);
     }
 
@@ -53,7 +56,7 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
         Note note;
         ArrayList<String> notes1;
         ContentValues cv = new ContentValues();
-        private Note note2;
+        private Measurement note2;
 
         public RecipesViewHolder(View view) {
 
@@ -77,14 +80,13 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
 
         }
 
-        public void bind(Note rec) {
+        public void bind(Measurement rec) {
             this.note2 = rec;
-            if (rec.getSaturation() != null)
                 saturation.setText(new String("Saturation = "+rec.getSaturation() + "%"));
-            lowPress.setText(new String("Low pressure = "+rec.getLowPressure()));
-            highPress.setText(new String("High pressure = "+rec.getHighPressure()));
+            lowPress.setText(new String("Low pressure = "+rec.getPressure_low()));
+            highPress.setText(new String("High pressure = "+rec.getPressure_high()));
             pulse.setText(new String("Pulse = "+rec.getPulse()));
-            data.setText(rec.getTimestamp());
+            data.setText(rec.getDataCreate());
 
             InputStream inputStream = null;
         }

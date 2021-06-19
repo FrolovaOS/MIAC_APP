@@ -83,22 +83,24 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            int position = getAdapterPosition();
-                            server.getRestApi().deleteNode(UserLocal.getLocalUser().getAccess_token(), position)
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .subscribe(new CallbackCompletableObserver(
-                                            throwable -> {
+                            if (measurements.size() !=0 ) {
+                                int position = getAdapterPosition();
+                                server.getRestApi().deleteNode(UserLocal.getLocalUser().getAccess_token(), position)
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe(new CallbackCompletableObserver(
+                                                throwable -> {
 //                            TODO вывести сообщение об ошибке
-                                            },
-                                            () -> {
+                                                },
+                                                () -> {
 //                          TODO всё получилось
-                                            }
-                                    ));
-
+                                                }
+                                        ));
+                            
 
                             measurements.remove(position);
                             notifyItemRemoved(getAdapterPosition());
+                        }
                         }
                     });
 

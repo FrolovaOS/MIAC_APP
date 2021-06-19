@@ -23,6 +23,7 @@ import java.util.Date;
 
 public class Account extends AppCompatActivity {
 
+
     private RecyclerView recyclerView;
     private FloatingActionButton fab;
     private ArrayList<Measurement> notes ;
@@ -94,7 +95,6 @@ public class Account extends AppCompatActivity {
 
         //подкачка из бд в notes
         final AdapterNotesDB adapter = new AdapterNotesDB(this, notes);
-
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }

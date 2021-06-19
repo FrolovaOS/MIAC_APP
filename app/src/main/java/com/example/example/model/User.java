@@ -19,6 +19,15 @@ public class User {
     public int getId() {
         return user.getId();
     }
+    public String getUserName() {
+        return user.getUsername();
+    }
+    public String getUserFirstName() {
+        return user.getFirst_name();
+    }
+    public String getUserLastName() {
+        return user.getLast_name();
+    }
 
     @Data
     class UserData{
@@ -26,11 +35,11 @@ public class User {
         @SerializedName("pk")
         private int id;
 
-        private String username;
+        public String username;
 
-        private String first_name;
+        public String first_name;
 
-        private String last_name;
+        public String last_name;
 
     }
 

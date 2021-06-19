@@ -63,6 +63,17 @@
                 android:padding="16dp"
                 android:textColorHint="#090000"
                 android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/saturation6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:hint="Enter saturation"
+                android:textColor="#090000"
+                android:padding="16dp"
+                android:textColorHint="#090000"
+                android:textSize="18sp"/>
         </LinearLayout>
 
         <Spinner
