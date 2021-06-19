@@ -1,9 +1,7 @@
 package com.example.example.retrofit;
 
 import com.example.example.model.MeasurementAdd;
-import com.example.example.rubish.Measurement;
-
-import java.util.List;
+import com.example.example.model.UserMeasurement;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
@@ -16,8 +14,8 @@ import retrofit2.http.Path;
 
 public interface MeasurementApi {
 
-    @GET("api/measurement/")
-    Single<List<Measurement>> getAllNote(@Header("authorization") String auth);
+    @GET("api/measurements/{id}")
+    Single<UserMeasurement> getAllNote(@Header("authorization") String auth, @Path("id") int id);
 
     @POST("api/measurement/")
     Completable addNewNode(@Header("authorization") String auth, @Body MeasurementAdd note);

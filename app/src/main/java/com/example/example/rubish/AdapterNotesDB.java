@@ -18,11 +18,9 @@ import com.example.example.service.MeasurementServer;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.BiConsumer;
 import io.reactivex.internal.observers.CallbackCompletableObserver;
 import io.reactivex.schedulers.Schedulers;
 
@@ -33,6 +31,9 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
     private ArrayList<Measurement> measurements = new ArrayList<>();
     CompositeDisposable compositeDisposable;
 
+    public void setMeasurements(ArrayList<Measurement> measurements){
+        this.measurements=measurements;
+    }
     protected AdapterNotesDB(Context context, ArrayList<Measurement> _notes) {
         server = new MeasurementServer();
         this.mContext = context;
@@ -40,6 +41,25 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
         compositeDisposable = new CompositeDisposable();
     }
 
+
+//    public void getList() {
+//        compositeDisposable.add(server.getRestApi().getAllNote(UserLocal.getKey(), UserLocal.getId())
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new BiConsumer<TupayaHuyna, Throwable>() {
+//                    @Override
+//                    public void accept(TupayaHuyna u, Throwable throwable) throws Exception {
+//                        if (throwable != null) {
+//                            System.out.println("ERROR");
+//                            throwable.printStackTrace();
+//                        } else {
+//                            measurements = new ArrayList<>(u.getMeasurements());
+//                            this.notifyDataSetChanged();
+//                        }
+//                    }
+//                }));
+//    }
+    //Это всё для получения листа, куда его деть обсудим вместе
 
 
     @Override
@@ -62,7 +82,7 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
 
     public class RecipesViewHolder extends RecyclerView.ViewHolder {
         TextView data, saturation, lowPress, highPress, pulse;
-        ;
+
         ImageView delete;
         MeasurementAdd note;
         ArrayList<String> notes1;
@@ -93,12 +113,10 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
 //                            TODO вывести сообщение об ошибке
                                                 },
                                                 () -> {
-//                          TODO всё получилось
+                                                    measurements.remove(position);
                                                 }
                                         ));
-                            
 
-                            measurements.remove(position);
                             notifyItemRemoved(getAdapterPosition());
                         }
                         }
@@ -118,22 +136,7 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
             InputStream inputStream = null;
         }
 
-        //Это всё для получения листа, куда его деть обсудим вместе
-        public void getList() {
-            compositeDisposable.add(server.getRestApi().getAllNote(UserLocal.getKey())
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new BiConsumer<List<Measurement>, Throwable>() {
-                        @Override
-                        public void accept(List<Measurement> u, Throwable throwable) throws Exception {
-                            if (throwable != null) {
-                                System.out.println("ERROR");
-                            } else {
-                                measurements = new ArrayList<>(u);
-                            }
-                        }
-                    }));
-        }
+
 
 
     }
