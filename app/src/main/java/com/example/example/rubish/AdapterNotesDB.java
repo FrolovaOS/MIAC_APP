@@ -30,15 +30,17 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
 
     private MeasurementServer server;
     protected final Context mContext;
-    private ArrayList<Measurement> notes = new ArrayList<>();
+    private ArrayList<Measurement> measurements = new ArrayList<>();
     CompositeDisposable compositeDisposable;
 
     protected AdapterNotesDB(Context context, ArrayList<Measurement> _notes) {
         server = new MeasurementServer();
         this.mContext = context;
-        notes = _notes;
+        measurements = _notes;
         compositeDisposable = new CompositeDisposable();
     }
+
+
 
     @Override
     public RecipesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -49,13 +51,13 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
 
     @Override
     public void onBindViewHolder(@NonNull RecipesViewHolder holder, int position) {
-        final Measurement note = notes.get(position);
+        final Measurement note = measurements.get(position);
         holder.bind(note);
     }
 
     @Override
     public int getItemCount() {
-        return notes == null ? 0 : notes.size();
+        return measurements == null ? 0 : measurements.size();
     }
 
     public class RecipesViewHolder extends RecyclerView.ViewHolder {
@@ -95,7 +97,7 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
                                     ));
 
 
-                            notes.remove(position);
+                            measurements.remove(position);
                             notifyItemRemoved(getAdapterPosition());
                         }
                     });
@@ -125,7 +127,7 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
                             if (throwable != null) {
                                 System.out.println("ERROR");
                             } else {
-                                notes = new ArrayList<>(u);
+                                measurements = new ArrayList<>(u);
                             }
                         }
                     }));
