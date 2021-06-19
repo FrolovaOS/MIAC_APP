@@ -32,7 +32,7 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
     @Override
     public RecipesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view =
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.notes, parent, false);
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.measurement_vie, parent, false);
         return new RecipesViewHolder(view);
     }
 

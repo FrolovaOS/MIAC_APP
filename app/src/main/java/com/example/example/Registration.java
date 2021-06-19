@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.example.model.User;
 import com.example.example.model.UserRegistration;
+import com.example.example.rubish.Account;
 import com.example.example.service.UserApiServer;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -95,7 +96,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                                     alert.show();
                                 } else {
                                     System.out.println("заебись");
-                                   // setUser();
+                                    // setUser();
                                     Intent intent = new Intent(Registration.this, Account.class);
                                     startActivity(intent);
                                 }

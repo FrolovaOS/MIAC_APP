@@ -14,6 +14,8 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.example.rubish.Account;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -35,7 +37,7 @@ public class addNotes extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.note_details);
+        setContentView(R.layout.add_meassurement);
 
         lowPres = (EditText) findViewById(R.id.lowPressure);
         highPres = (EditText) findViewById(R.id.highPressure);
