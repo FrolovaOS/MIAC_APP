@@ -5,7 +5,7 @@
     tools:context="com.arhiser.todolist.screens.main.MainActivity">
     <item
         android:id="@+id/action_save"
-        android:icon="@android:drawable/ic_menu_save"
+        android:icon="@drawable/ok1"
         android:title="@string/save"
         app:showAsAction="always" />
 </menu>

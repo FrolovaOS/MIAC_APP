@@ -30,14 +30,15 @@ public class NavigationLayout extends ConstraintLayout
         View view = LayoutInflater.from(context).inflate(R.layout.view_drawer_layout, parent,true);
 
         name = (TextView) view.findViewById(R.id.textView3);
-        name.setText(new String(UserLocal.getLocalUser().getUserFirstName()));
-        lastName = (TextView) view.findViewById(R.id.textView);
-        lastName.setText(UserLocal.getLocalUser().getUserLastName());
-        email = (TextView) view.findViewById(R.id.textView5);
-        email.setText(recomendations.getEmail());
+        name.setText(new String(UserLocal.getLocalUser().getUserFirstName() + " " + UserLocal.getLocalUser().getUserLastName()));
+
         snills = (TextView) view.findViewById(R.id.textView4);
-        snills.setText(recomendations.getUsername());
-        recomendation = (TextView) view.findViewById(R.id.textView6);
-        recomendation.setText(recomendations.getRecomendations().get((recomendations.getRecomendations().size() - 1)).getText());
+        snills.setText(UserLocal.getLocalUser().getUserName());
+        if (recomendations != null) {
+            recomendation = (TextView) view.findViewById(R.id.textView6);
+            recomendation.setText(recomendations.getRecomendations().get((recomendations.getRecomendations().size() - 1)).getText());
+            email = (TextView) view.findViewById(R.id.textView5);
+            email.setText(recomendations.getEmail());
+        }
     }
 }

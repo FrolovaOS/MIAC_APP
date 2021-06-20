@@ -82,7 +82,6 @@ public class addNotes extends AppCompatActivity {
                 seturation = 0;
                 MeasurementAdd measurementAdd = new MeasurementAdd(lowPressure, highPressure, pulse, seturation, UserLocal.getId(), "gasdf");
 
-                //отправить данные в бд ( не забыть item)
 
                 server.getRestApi().addNewNode(UserLocal.getKey(), measurementAdd)
                         .subscribeOn(Schedulers.io())

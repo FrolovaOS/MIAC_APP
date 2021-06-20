@@ -28,6 +28,9 @@ public class User {
     public String getUserLastName() {
         return user.getLast_name();
     }
+    public String getEmail() {
+        return user.getEmail();
+    }
 
     @Data
     class UserData{
@@ -36,6 +39,8 @@ public class User {
         private int id;
 
         public String username;
+
+        public String email;
 
         public String first_name;
 

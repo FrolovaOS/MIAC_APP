@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="300dp"
     android:layout_height="match_parent"
     android:background="#ADE9F1"
@@ -7,19 +8,11 @@
 
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:text="lastName"
-        android:textSize="20sp"
-        android:translationX="50dp"
-        android:translationY="70dp" />
-
-    <TextView
         android:id="@+id/textView3"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:text="name"
+        android:textColor="#000000"
         android:textSize="20sp"
         android:translationX="50dp"
         android:translationY="20dp" />
@@ -29,25 +22,51 @@
         android:layout_width="150dp"
         android:layout_height="30dp"
         android:text="snills"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:translationX="50dp"
+        android:translationY="70dp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="email"
+        android:textColor="#000000"
         android:textSize="20sp"
         android:translationX="50dp"
         android:translationY="120dp" />
 
     <TextView
-        android:id="@+id/textView5"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:text="email"
-        android:textSize="20sp"
-        android:translationX="50dp"
-        android:translationY="170dp" />
-
-    <TextView
         android:id="@+id/textView6"
-        android:layout_width="260dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="recomendation"
         android:textSize="20sp"
+        android:textColor="#000000"
         android:translationX="10dp"
         android:translationY="240dp" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:srcCompat="@drawable/acc6"
+        android:translationX="10dp"
+        android:translationY="18dp" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:translationX="5dp"
+        android:translationY="63dp"
+        app:srcCompat="@drawable/kisspng_vector_graphics_computer_icons_identity_document_i_community_itesoft_ecosystem_5cd947c8d31221_4176350515577435608646" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:translationX="8dp"
+        android:translationY="118dp"
+        app:srcCompat="@drawable/_a359002ce50d5_3263382315134597148451" />
 </RelativeLayout>

@@ -49,11 +49,13 @@ public class Account extends AppCompatActivity {
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(layoutResID);
-        setupMenu();
+        //setupMenu();
     }
 
     public void setupMenu() {
         left_drawer = (RelativeLayout) findViewById(R.id.left_drawer);
+
+        if (recomendations == null) System.out.println("пусто блять");
         navigationLayout = new NavigationLayout(this, left_drawer, recomendations);
 
         left_drawer.addView(navigationLayout);
@@ -104,6 +106,7 @@ public class Account extends AppCompatActivity {
                         } else {
                             setRecomendations(recomendations);
                         }
+                        setupMenu();
                     }
                 }));
     }

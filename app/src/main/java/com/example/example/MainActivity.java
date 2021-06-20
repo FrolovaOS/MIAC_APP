@@ -75,8 +75,8 @@ public class MainActivity extends AppCompatActivity {
     public void enter(View view) {
         String log = login.getText().toString();
         String pass = password.getText().toString();
-//        UserLogIn userLogIn = new UserLogIn(log, pass);
-        UserLogIn userLogIn = new UserLogIn("999-999-999-99", "14122000");
+        UserLogIn userLogIn = new UserLogIn(log, pass);
+        //UserLogIn userLogIn = new UserLogIn("999-999-999-99", "14122000");
         compositeDisposable.add(userApiServer.getRestApi().authorization(userLogIn)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -56,12 +56,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.okey:
-                String snills1 = snills.getText().toString();
-                System.out.println("name = " + snills1);
-                String e = email.getText().toString();
-                System.out.println("lastName = " + e);
-                String username = snills1;
-                String email1 = e;
+                String username = snills.getText().toString();
+                String email1 = email.getText().toString();
                 String password1 = pass1.getText().toString();
                 String password2 = pass2.getText().toString();
                 String first_name = firstName.getText().toString();
@@ -95,7 +91,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                                     AlertDialog alert = builder.create();
                                     alert.show();
                                 } else {
-                                    System.out.println("заебись");
                                      UserLocal.setLocalUser(user);
                                     Intent intent = new Intent(Registration.this, Account.class);
                                     startActivity(intent);

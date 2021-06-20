@@ -9,7 +9,7 @@ import retrofit2.http.Path;
 
 public interface RecomendationsApi {
 
-    @GET("/recomendations/{id}")
+    @GET("api/recomendations/{id}")
     Single<Recomendations> getRecomendations(@Header("authorization") String auth, @Path("id") int id);
 
 }

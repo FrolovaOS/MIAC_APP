@@ -19,7 +19,7 @@ public class MeasurementServer {
 
     private Retrofit createRetrofit() {
         return new Retrofit.Builder()
-                .baseUrl("http://10.11.0.108:1883/")
+                .baseUrl("http://84.252.131.194:1883/")
                 .client(createOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

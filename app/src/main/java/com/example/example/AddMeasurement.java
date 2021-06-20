@@ -85,8 +85,8 @@ public class AddMeasurement extends AppCompatActivity {
     }
 
     private void addMeasure() {
-        int lowPressure = Integer.parseInt(lowPres.getText().toString());
-        int highPressure = Integer.parseInt(highPres.getText().toString());
+        int highPressure = Integer.parseInt(lowPres.getText().toString());
+        int lowPressure = Integer.parseInt(highPres.getText().toString());
         int pulse = Integer.parseInt(pulse1.getText().toString());
         int seturation = Integer.parseInt(satur.getText().toString());;//TODO
 

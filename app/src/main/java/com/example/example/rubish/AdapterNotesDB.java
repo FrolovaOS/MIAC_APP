@@ -1,5 +1,6 @@
 package com.example.example.rubish;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -21,7 +22,10 @@ import com.example.example.service.MeasurementServer;
 import com.google.gson.internal.bind.util.ISO8601Utils;
 
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -64,7 +68,7 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
     }
 
     public class RecipesViewHolder extends RecyclerView.ViewHolder {
-        TextView data, saturation, lowPress, highPress, pulse;
+        TextView data, saturation, lowPress, highPress, pulse, type;
 
         ImageView delete;
         MeasurementAdd note;
@@ -76,6 +80,7 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
 
             super(view);
             saturation = itemView.findViewById(R.id.saturation);
+            type = itemView.findViewById(R.id.type);
             data = itemView.findViewById(R.id.data);
             lowPress = itemView.findViewById(R.id.lowPressure1);
             highPress = itemView.findViewById(R.id.highPressure1);
@@ -116,13 +121,24 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
 
         public void bind(Measurement rec) {
             this.note2 = rec;
-            saturation.setText(new String("Saturation = " + rec.getSaturation() + "%"));
-            lowPress.setText(new String("Low pressure = " + rec.getPressure_low()));
-            highPress.setText(new String("High pressure = " + rec.getPressure_high()));
-            pulse.setText(new String("Pulse = " + rec.getPulse()));
-            data.setText(rec.getDataCreate());
+            saturation.setText(new String("Сатурация = "+rec.getSaturation() + "%"));
+            lowPress.setText(new String("Нижнее давление = "+rec.getPressure_low()));
+            highPress.setText(new String("Верхнее давление = "+rec.getPressure_high()));
+            pulse.setText(new String("Пульс = "+rec.getPulse()));
 
-            InputStream inputStream = null;
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSSSSS");
+            String date = "";
+            try {
+                Date date1 = dt.parse(rec.getDataCreate());
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat dt1 = new SimpleDateFormat("dd.MM.yyyy 'в' hh:mm");
+                date=dt1.format(date1);
+                System.out.println("---------------------------"+date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            type.setText(new String("Обстоятельства измерения: "+rec.getType()));
+
         }
 
 

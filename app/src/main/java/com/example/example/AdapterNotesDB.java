@@ -19,7 +19,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.example.model.Measurement;
 
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesViewHolder> {
 
@@ -51,7 +54,7 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
     }
 
     public class RecipesViewHolder extends RecyclerView.ViewHolder {
-        TextView data,saturation, lowPress, highPress, pulse;
+        TextView data,saturation, lowPress, highPress, pulse,type;
         ImageView delete;
         Note note;
         ArrayList<String> notes1;
@@ -62,6 +65,7 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
 
             super(view);
             saturation = itemView.findViewById(R.id.saturation);
+            type = itemView.findViewById(R.id.type);
             data = itemView.findViewById(R.id.data);
             lowPress = itemView.findViewById(R.id.lowPressure1);
             highPress = itemView.findViewById(R.id.highPressure1);
@@ -82,11 +86,23 @@ public class AdapterNotesDB extends RecyclerView.Adapter<AdapterNotesDB.RecipesV
 
         public void bind(Measurement rec) {
             this.note2 = rec;
-                saturation.setText(new String("Saturation = "+rec.getSaturation() + "%"));
-            lowPress.setText(new String("Low pressure = "+rec.getPressure_low()));
-            highPress.setText(new String("High pressure = "+rec.getPressure_high()));
-            pulse.setText(new String("Pulse = "+rec.getPulse()));
-            data.setText(rec.getDataCreate());
+                saturation.setText(new String("Сатурация = "+rec.getSaturation() + "%"));
+            lowPress.setText(new String("Нижнее давление = "+rec.getPressure_low()));
+            highPress.setText(new String("Верхнее давление = "+rec.getPressure_high()));
+            pulse.setText(new String("Пульс = "+rec.getPulse()));
+
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSSSSS");
+            String date = "";
+            try {
+                Date date1 = dt.parse(rec.getDataCreate());
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat dt1 = new SimpleDateFormat("dd.MM.yyyy 'в' hh:mm");
+                date=dt1.format(date1);
+                System.out.println("---------------------------"+date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            type.setText(new String("Обстоятельства измерения: "+rec.getType()));
 
             InputStream inputStream = null;
         }
